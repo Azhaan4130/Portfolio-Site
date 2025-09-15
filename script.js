@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
 
-    // --- Page Loader ---
+    // Page Loader
     window.addEventListener('load', () => {
         loader.style.opacity = '0';
         setTimeout(() => {
@@ -12,22 +12,18 @@ document.addEventListener("DOMContentLoaded", function() {
         }, 500);
     });
 
-    // --- Header Scroll Effect ---
+    // Header Scroll Effect
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
+        header.classList.toggle('scrolled', window.scrollY > 50);
     });
 
-    // --- Hamburger Menu ---
+    // Hamburger Menu
     hamburger.addEventListener('click', () => {
         navLinks.classList.toggle('active');
         hamburger.classList.toggle('toggle');
     });
 
-    // Close menu when a link is clicked
+    // Close menu on link click
     document.querySelectorAll('.nav-links a').forEach(link => {
         link.addEventListener('click', () => {
             if (navLinks.classList.contains('active')) {
@@ -37,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // --- Scroll Animations ---
+    // Scroll Animations
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -50,5 +46,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.querySelectorAll('.animate-in').forEach(element => {
         observer.observe(element);
+    });
+
+    // Vanilla Tilt.js for 3D effect
+    VanillaTilt.init(document.querySelectorAll(".tilt-effect"), {
+        max: 15,
+        speed: 400,
+        glare: true,
+        "max-glare": 0.2
     });
 });
