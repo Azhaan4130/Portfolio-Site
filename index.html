@@ -31,7 +31,7 @@
             overflow: hidden;
         }
 
-        /* New Advanced Preloader */
+        /* Advanced Preloader */
         #preloader {
             position: fixed;
             top: 0;
@@ -43,27 +43,27 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            opacity: 1;
+            visibility: visible;
             transition: opacity 0.75s ease, visibility 0.75s ease;
         }
         #preloader.loaded {
             opacity: 0;
             visibility: hidden;
         }
-        .loader-bars {
-            display: flex;
-        }
+        .loader-bars { display: flex; }
         .loader-bars .bar {
             width: 15px;
             height: 80px;
             margin: 0 5px;
             border-radius: 5px;
+            background-color: var(--main-red);
             animation: bar-wave 1.2s infinite ease-in-out;
         }
-        .loader-bars .bar:nth-child(1) { background-color: var(--main-red); animation-delay: 0s; }
-        .loader-bars .bar:nth-child(2) { background-color: var(--light-blue); animation-delay: 0.1s; }
-        .loader-bars .bar:nth-child(3) { background-color: var(--main-red); animation-delay: 0.2s; }
-        .loader-bars .bar:nth-child(4) { background-color: var(--light-blue); animation-delay: 0.3s; }
-        .loader-bars .bar:nth-child(5) { background-color: var(--main-red); animation-delay: 0.4s; }
+        .loader-bars .bar:nth-child(2) { animation-delay: 0.1s; background-color: var(--light-blue); }
+        .loader-bars .bar:nth-child(3) { animation-delay: 0.2s; }
+        .loader-bars .bar:nth-child(4) { animation-delay: 0.3s; background-color: var(--light-blue); }
+        .loader-bars .bar:nth-child(5) { animation-delay: 0.4s; }
         
         @keyframes bar-wave {
             0%, 40%, 100% { transform: scaleY(0.4); }
@@ -77,11 +77,14 @@
             --gradient-color-3: #0a0a10; --gradient-color-4: #4d4dff;
         }
 
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 2; }
-        header { position: fixed; width: 100%; top: -100px; left: 0; z-index: 100; background: rgba(10, 10, 16, 0.8); backdrop-filter: blur(10px); transition: background 0.3s ease, top 0.4s ease-in-out; }
-        header.visible { top: 0; }
+        #main-content {
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        header { position: fixed; width: 100%; top: 0; left: 0; z-index: 100; background: rgba(10, 10, 16, 0.8); backdrop-filter: blur(10px); transition: top 0.4s ease-in-out; }
         header.hidden { top: -100px; }
-        nav { display: flex; justify-content: space-between; align-items: center; height: 70px; }
+        nav { display: flex; justify-content: space-between; align-items: center; height: 70px; padding: 0 2rem; }
         .logo { font-size: 1.5rem; font-weight: 700; }
         .logo span { color: var(--main-red); }
         .nav-links { display: flex; list-style: none; }
@@ -90,11 +93,8 @@
         .nav-links a::after { content: ''; position: absolute; width: 0; height: 2px; background: var(--main-red); bottom: -5px; left: 0; transition: width 0.3s ease; }
         .nav-links a:hover { color: var(--main-red); } .nav-links a:hover::after { width: 100%; }
         .hamburger { display: none; cursor: pointer; } .hamburger .line { width: 25px; height: 3px; background: var(--text-color); margin: 5px 0; transition: all 0.3s ease; }
-
-        .content-hidden { opacity: 0; }
-        .content-visible { animation: fadeIn 1s forwards; }
         
-        #hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding-top: 70px; }
+        #hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 2rem; }
         .avatar { width: 150px; height: 150px; border-radius: 50%; border: 4px solid var(--dark-blue); box-shadow: 0 0 25px rgba(255, 51, 102, 0.5); margin-bottom: 2rem; }
         .hero-title { font-size: 3.5rem; font-weight: 700; background: -webkit-linear-gradient(45deg, var(--main-red), var(--light-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .hero-subtitle { font-size: 1.2rem; color: var(--text-muted); margin: 1.5rem auto; max-width: 600px; }
@@ -107,22 +107,24 @@
         
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% { opacity: 1; transform: translateY(0) translateX(-50%); } 40% { transform: translateY(-20px) translateX(-50%); } 60% { transform: translateY(-10px) translateX(-50%); } }
 
-        section { padding: 100px 0; }
+        section { padding: 100px 2rem; }
         .animatable { opacity: 0; transform: translateY(50px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
         .animatable.is-visible { opacity: 1; transform: translateY(0); }
         
-        h2.section-title { font-size: 2.8rem; text-align: center; margin-bottom: 1rem; font-weight: 700; position: relative; }
-        h2.section-title::after { content: ''; position: absolute; width: 80px; height: 4px; background: var(--main-red); bottom: -10px; left: 50%; transform: translateX(-50%) scaleX(0); transition: transform 0.5s ease-out 0.3s; }
+        h2.section-title { font-size: 2.8rem; text-align: center; margin-bottom: 4rem; font-weight: 700; position: relative; }
+        h2.section-title::after { content: ''; position: absolute; width: 80px; height: 4px; background: var(--main-red); bottom: -15px; left: 50%; transform: translateX(-50%) scaleX(0); transition: transform 0.5s ease-out 0.3s; }
         .is-visible h2.section-title::after { transform: translateX(-50%) scaleX(1); }
         
-        .project-grid, .skills-grid-new, .intelligent-grid { margin-top: 4rem; display: grid; gap: 2rem; }
+        .project-grid, .skills-grid-new, .intelligent-grid { display: grid; gap: 2rem; }
         .project-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
         .skills-grid-new { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
         .intelligent-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        
+        .project-card, .skill-item, .feature-box { background: var(--dark-blue); border-radius: 10px; border: 1px solid #2a2a3e; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .project-card:hover, .skill-item:hover, .feature-box:hover { transform: translateY(-10px); }
+        
+        footer { padding: 2rem 0; text-align: center; color: var(--text-muted); font-size: 0.9rem; background: #07070c; }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        /* Responsive Fixes */
         @media (max-width: 768px) {
             .nav-links { position: fixed; top: 0; right: 0; height: 100vh; width: 70%; background: var(--dark-blue); flex-direction: column; align-items: center; justify-content: center; transform: translateX(100%); transition: transform 0.5s ease-in-out; }
             .nav-links.active { transform: translateX(0); } .nav-links li { margin: 20px 0; }
@@ -142,45 +144,54 @@
     </div>
     <canvas id="gradient-canvas" data-transition-in></canvas>
 
-    <div id="main-content" class="content-hidden">
+    <div id="main-content">
         <header>
-            <div class="container">
-                <nav>
-                    <div class="logo"><span>Your</span>Name</div>
-                    <ul class="nav-links">
-                        <li><a href="#hero">Home</a></li>
-                        <li><a href="#projects">Projects</a></li>
-                        <li><a href="#skills">Skills</a></li>
-                        <li><a href="#intelligent">Intelligence</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                    <div class="hamburger">
-                        <div class="line"></div><div class="line"></div><div class="line"></div>
-                    </div>
-                </nav>
-            </div>
+            <nav>
+                <div class="logo"><span>Your</span>Name</div>
+                <ul class="nav-links">
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#intelligent">Intelligence</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <div class="line"></div><div class="line"></div><div class="line"></div>
+                </div>
+            </nav>
         </header>
 
         <main>
-            <section id="hero" class="animatable">
-                <div class="container">
-                    <div class="hero-content">
-                        <img src="https://via.placeholder.com/150/1a1a2e/ffffff?text=Your+Avatar" alt="Your Avatar" class="avatar">
-                        <h1 class="hero-title">Creative Developer</h1>
-                        <p class="hero-subtitle">Building intelligent bots and modern web experiences. I turn complex problems into elegant solutions.</p>
-                        <div class="hero-buttons">
-                            <a href="#projects" class="btn btn-primary">My Work</a>
-                            <a href="https://github.com/your-github" target="_blank" class="btn btn-secondary">GitHub</a>
-                        </div>
+            <section id="hero">
+                <div class="hero-content animatable">
+                    <img src="https://via.placeholder.com/150/1a1a2e/ffffff?text=Your+Avatar" alt="Your Avatar" class="avatar">
+                    <h1 class="hero-title">Creative Developer</h1>
+                    <p class="hero-subtitle">Building intelligent bots and modern web experiences. I turn complex problems into elegant solutions.</p>
+                    <div class="hero-buttons">
+                        <a href="#projects" class="btn btn-primary">My Work</a>
+                        <a href="https://github.com/your-github" target="_blank" class="btn btn-secondary">GitHub</a>
                     </div>
                 </div>
                 <div class="scroll-down"><i class="fas fa-chevron-down"></i></div>
             </section>
-            <!-- Other sections remain the same as previous versions -->
+
+            <section id="projects">
+                <h2 class="section-title animatable">Featured Projects</h2>
+                <div class="project-grid">
+                    <div class="project-card animatable"> ... </div>
+                </div>
+            </section>
+            
+            <section id="skills">
+                <h2 class="section-title animatable">My Skills</h2>
+                <div class="skills-grid-new">
+                    <div class="skill-item animatable"> ... </div>
+                </div>
+            </section>
         </main>
 
         <footer>
-            <div class="container"><p>&copy; 2025 Your Name. All Rights Reserved.</p></div>
+            <p>&copy; 2025 Your Name. All Rights Reserved.</p>
         </footer>
     </div>
     
@@ -191,31 +202,28 @@
             const mainContent = document.getElementById('main-content');
             const body = document.body;
 
-            window.addEventListener('load', () => {
-                // Hide preloader
+            // ---- GUARANTEED FIX: Show content after a safe delay ----
+            setTimeout(() => {
                 preloader.classList.add('loaded');
                 body.classList.remove('loading');
-                
-                // Show main content
-                mainContent.classList.remove('content-hidden');
-                mainContent.classList.add('content-visible');
-
-                // Initialize animations and scripts for the main content
+                mainContent.style.opacity = '1';
                 initializeMainScripts();
-            });
+            }, 1500); // 1.5-second delay to ensure everything is ready
 
             function initializeMainScripts() {
                 // Gradient Background
-                const gradient = new PocoLoco();
-                gradient.initGradient("#gradient-canvas");
+                try {
+                    const gradient = new PocoLoco();
+                    gradient.initGradient("#gradient-canvas");
+                } catch(e) {
+                    console.error("Gradient canvas failed to initialize:", e);
+                }
 
                 // Header & Menu
                 const header = document.querySelector('header');
                 const hamburger = document.querySelector('.hamburger');
                 const navLinks = document.querySelector('.nav-links');
                 let lastScrollTop = 0;
-                
-                header.classList.add('visible');
 
                 window.addEventListener('scroll', () => {
                     let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
