@@ -3,126 +3,429 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name | Developer Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>My Portfolio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+        :root {
+            --primary-color: #ff4136; /* Red */
+            --background-color: #1a1a1a;
+            --text-color: #f2f2f2;
+            --container-bg: #2b2b2b;
+            --border-color: #ff4136;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px 0;
+        }
+        
+        section {
+            padding: 60px 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Header */
+        header {
+            background: var(--container-bg);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        header nav ul li {
+            margin-left: 25px;
+        }
+
+        header nav ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+
+        header nav ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        /* Home Section */
+        #home {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            padding-top: 80px;
+        }
+
+        #home h1 {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+        
+        #home .typing-effect {
+            border-right: .15em solid var(--primary-color);
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typing 3.5s steps(30, end), blink-caret .75s step-end infinite;
+        }
+
+        /* Typing animation */
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--primary-color); }
+        }
+
+        #home p {
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+
+        /* Works Section */
+        #works .works-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .work-box {
+            background: var(--container-bg);
+            padding: 25px;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .work-box:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 20px rgba(255, 65, 54, 0.2);
+        }
+
+        .work-box h3 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        /* Form Styling */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background: #333;
+            border: 1px solid #444;
+            color: var(--text-color);
+            border-radius: 5px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: #fff;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 700;
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #d13026;
+        }
+        
+        h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background: var(--container-bg);
+            margin-top: 60px;
+            font-weight: 700;
+        }
+        
+        #response-message {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+    </style>
 </head>
-<body class="loading">
-    <!-- Preloader -->
-    <div id="preloader">
-        <div class="loader-bars">
-            <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
-        </div>
-    </div>
+<body>
 
-    <!-- Animated Background -->
-    <div class="background-container"></div>
-
-    <div id="main-content">
-        <header>
-            <nav class="container">
-                <a href="#" class="logo"><span>Your</span>Name</a>
-                <ul class="nav-links">
-                    <li><a href="#hero">Home</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#projects">Projects</a></li>
+    <header>
+        <div class="container">
+            <a href="#home" class="logo">PORTFOLIO</a>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#works">Works</a></li>
+                    <li><a href="#support">Support</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
-                <div class="hamburger">
-                    <div class="line"></div><div class="line"></div><div class="line"></div>
-                </div>
             </nav>
-        </header>
+        </div>
+    </header>
 
-        <main>
-            <section id="hero">
-                <div class="hero-content animatable">
-                    <img src="https://via.placeholder.com/150/10101b/ffffff?text=Your+Avatar" alt="Your Avatar" class="avatar">
-                    <h1>Creative Developer & AI Architect</h1>
-                    <p>I build intelligent, high-performance applications and seamless user experiences.</p>
-                    <a href="#projects" class="btn">View My Work</a>
+    <section id="home">
+        <div class="container">
+            <h1 class="typing-effect">DEVELOPER & CREATOR</h1>
+            <p>Expert in Minecraft, Discord, and Web Development</p>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <h2>About Me</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto;">
+                I am a passionate developer and creator with years of experience across multiple platforms. From building complex Minecraft servers and Discord bots to developing and hosting solutions, my expertise covers a wide range of modern technologies. My goal is to create efficient, engaging, and high-quality digital experiences.
+            </p>
+        </div>
+    </section>
+
+    <section id="works">
+        <div class="container">
+            <h2>My Work & Experience</h2>
+            <div class="works-grid">
+                <div class="work-box">
+                    <h3>Minecraft Server Dev</h3>
+                    <p>3+ Years of Experience</p>
                 </div>
-            </section>
-
-            <section id="services">
-                <div class="container">
-                    <h2 class="section-title animatable">What I Do</h2>
-                    <div class="services-grid">
-                        <div class="service-card animatable">
-                            <i class="fas fa-robot"></i>
-                            <h3>Discord Bot Development</h3>
-                            <p>Creating custom, multi-server Discord bots with features like moderation, music, AI integration, and sharding for scalability.</p>
-                        </div>
-                        <div class="service-card animatable">
-                            <i class="fas fa-server"></i>
-                            <h3>Backend & API</h3>
-                            <p>Designing robust and efficient server-side logic, APIs, and database structures for web and game applications.</p>
-                        </div>
-                        <div class="service-card animatable">
-                            <i class="fas fa-cubes"></i>
-                            <h3>Minecraft Server Tooling</h3>
-                            <p>Developing custom plugins, Skripts, and server management tools to create unique gameplay experiences.</p>
-                        </div>
-                    </div>
+                <div class="work-box">
+                    <h3>Discord Server Dev</h3>
+                    <p>1+ Year of Experience</p>
                 </div>
-            </section>
-
-            <section id="projects">
-                <div class="container">
-                    <h2 class="section-title animatable">Featured Projects</h2>
-                    <div class="project-grid">
-                        <div class="project-card animatable">
-                            <img src="https://via.placeholder.com/400x250/10101b/ff3366?text=Project+Alpha" alt="Project Alpha">
-                            <h3>Project Alpha</h3>
-                            <p>A multi-purpose Discord bot with advanced moderation and a custom Lavalink music system.</p>
-                            <div class="project-links">
-                                <a href="#" target="_blank">Live Demo <i class="fas fa-external-link-alt"></i></a>
-                                <a href="#" target="_blank">GitHub <i class="fab fa-github"></i></a>
-                            </div>
-                        </div>
-                         <div class="project-card animatable">
-                            <img src="https://via.placeholder.com/400x250/10101b/4d4dff?text=Project+Beta" alt="Project Beta">
-                            <h3>Project Beta</h3>
-                            <p>Custom plugin suite for a Minecraft server, featuring a key-based licensing system.</p>
-                             <div class="project-links">
-                                <a href="#" target="_blank">Live Demo <i class="fas fa-external-link-alt"></i></a>
-                                <a href="#" target="_blank">GitHub <i class="fab fa-github"></i></a>
-                            </div>
-                        </div>
-                         <div class="project-card animatable">
-                            <img src="https://via.placeholder.com/400x250/10101b/ffffff?text=Project+Gamma" alt="Project Gamma">
-                            <h3>Project Gamma</h3>
-                            <p>An AI-powered chatbot with persistent memory, integrated into a web-based dashboard.</p>
-                             <div class="project-links">
-                                <a href="#" target="_blank">Live Demo <i class="fas fa-external-link-alt"></i></a>
-                                <a href="#" target="_blank">GitHub <i class="fab fa-github"></i></a>
-                            </div>
-                        </div>
-                    </div>
+                <div class="work-box">
+                    <h3>Discord Bot Dev</h3>
+                    <p>4+ Years of Experience</p>
                 </div>
-            </section>
-
-            <section id="contact">
-                <div class="container">
-                    <h2 class="section-title animatable">Get In Touch</h2>
-                    <p class="contact-subtitle animatable">Have a project idea or want to connect? My inbox is always open.</p>
-                    <div class="contact-content animatable">
-                        <a href="mailto:your.email@example.com" class="btn">your.email@example.com</a>
-                        <div class="social-links">
-                            <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        </div>
-                    </div>
+                <div class="work-box">
+                    <h3>YouTube Content Creator</h3>
+                    <p>Creating engaging content for the community.</p>
                 </div>
-            </section>
-        </main>
+                <div class="work-box">
+                    <h3>Pterodactyl Expert</h3>
+                    <p>Mastering game server management.</p>
+                </div>
+                <div class="work-box">
+                    <h3>Hosting Dev</h3>
+                    <p>2+ Years of Experience</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <footer>
-            <p>&copy; 2025 Azhaan. All Rights Reserved.</p>
-        </footer>
-    </div>
+    <section id="support">
+        <div class="container">
+            <h2>Support</h2>
+            <form id="support-form" style="max-width: 600px; margin: 0 auto;">
+                <div class="form-group">
+                    <label for="support-name">Your Name</label>
+                    <input type="text" id="support-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="support-message">How can we help?</label>
+                    <textarea id="support-message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn">Send Support Request</button>
+                <p id="support-response" class="response-message"></p>
+            </form>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2>Contact Me</h2>
+            <form id="contact-form" style="max-width: 600px; margin: 0 auto;">
+                <div class="form-group">
+                    <label for="contact-name">Your Name</label>
+                    <input type="text" id="contact-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact-email">Your Email</label>
+                    <input type="email" id="contact-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact-message">Message</label>
+                    <textarea id="contact-message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn">Send Message</button>
+                 <p id="contact-response" class="response-message"></p>
+            </form>
+        </div>
+    </section>
     
-    <script src="script.js"></script>
+    <footer>
+        <p>Made By LazyXDevs</p>
+    </footer>
+
+    <script>
+        // --- IMPORTANT: PASTE YOUR WEBHOOK URLS HERE ---
+        const supportWebhookUrl = 'YOUR_SUPPORT_WEBHOOK_URL';
+        const contactWebhookUrl = 'YOUR_CONTACT_WEBHOOK_URL';
+        // ---------------------------------------------
+
+        // Fade-in animation on scroll
+        const sections = document.querySelectorAll('section');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Form submission logic
+        const handleFormSubmit = async (e, formType) => {
+            e.preventDefault();
+            
+            let webhookUrl, name, email, message, responseElement;
+
+            if (formType === 'support') {
+                webhookUrl = supportWebhookUrl;
+                name = document.getElementById('support-name').value;
+                message = document.getElementById('support-message').value;
+                responseElement = document.getElementById('support-response');
+                
+                if (webhookUrl === 'YOUR_SUPPORT_WEBHOOK_URL') {
+                    responseElement.textContent = 'Error: Webhook URL is not configured.';
+                    responseElement.style.color = 'red';
+                    return;
+                }
+
+            } else if (formType === 'contact') {
+                webhookUrl = contactWebhookUrl;
+                name = document.getElementById('contact-name').value;
+                email = document.getElementById('contact-email').value;
+                message = document.getElementById('contact-message').value;
+                responseElement = document.getElementById('contact-response');
+
+                if (webhookUrl === 'YOUR_CONTACT_WEBHOOK_URL') {
+                    responseElement.textContent = 'Error: Webhook URL is not configured.';
+                    responseElement.style.color = 'red';
+                    return;
+                }
+            }
+
+            const payload = {
+                embeds: [{
+                    title: `New ${formType.charAt(0).toUpperCase() + formType.slice(1)} Submission`,
+                    color: 16729398, // Red color
+                    fields: [
+                        { name: 'Name', value: name, inline: true },
+                        ...(email ? [{ name: 'Email', value: email, inline: true }] : []),
+                        { name: 'Message', value: message }
+                    ],
+                    timestamp: new Date().toISOString()
+                }]
+            };
+
+            try {
+                const response = await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    responseElement.textContent = 'Message sent successfully!';
+                    responseElement.style.color = 'lightgreen';
+                    e.target.reset();
+                } else {
+                    responseElement.textContent = `Error: ${response.statusText}`;
+                    responseElement.style.color = 'red';
+                }
+            } catch (error) {
+                responseElement.textContent = 'An error occurred. Please try again.';
+                responseElement.style.color = 'red';
+            }
+        };
+
+        document.getElementById('support-form').addEventListener('submit', (e) => handleFormSubmit(e, 'support'));
+        document.getElementById('contact-form').addEventListener('submit', (e) => handleFormSubmit(e, 'contact'));
+
+    </script>
 </body>
 </html>
